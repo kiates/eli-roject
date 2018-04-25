@@ -20,9 +20,6 @@ public:
 	void setXValue(int xPos);
 	void setYValue(int yPos);
 
-	//increments
-	void increaseXPos(int x);
-	void increaseYPos(int y);
 
 
 	sf::Vector2f getPosition();

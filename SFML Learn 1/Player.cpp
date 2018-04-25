@@ -25,6 +25,26 @@ void Player::updatePlayer(sf::RenderWindow & window)
 	}
 }
 
+int Player::getXValue()
+{
+	return m_xPos;
+}
+
+int Player::getYValue()
+{
+	return m_yPos;
+}
+
+void Player::setXValue(int xPos)
+{
+	m_xPos = xPos;
+}
+
+void Player::setYValue(int yPos)
+{
+	m_yPos = yPos;
+}
+
 sf::Vector2f Player::getPosition()
 {
 	return obj.getPosition();
