@@ -4,10 +4,9 @@
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1080,720), "Window", sf::Style::Close | sf::Style::Titlebar); //defining size, name, and stles of the window
-	sf::RectangleShape player(sf::Vector2f(100.0f, 100.0f)); // creates shape of 100 by 100
+	//sf::RectangleShape player(sf::Vector2f(100.0f, 100.0f)); // creates shape of 100 by 100
 	Player player(0, 0);
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(1080.0f, 720.0f));
-	player.setFillColor(sf::Color::Green); //sets color of rectangle
 	Platform plat(4, 1);
 	Platform plat2(3, 1);
 	Platform plat3(2, 1);
@@ -25,22 +24,16 @@ int main() {
 			}
 
 		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) { // moves the player left when 'A' is pressed
-			player.move(-0.1f, 0.0f);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) { // moves the play right when 'D' is pressed
-			player.move(0.1f, 0.0f);
-		}
 		
-		view.setCenter(player.getPosition().x, player.getPosition().y); // sets a view to follow the player
+		view.setCenter(player.getPosition()); // sets a view to follow the player
 
 		window.clear(); // clears window
-
 		window.setView(view); // set view on the the screen
 
+		player.updatePlayer(window);
+
 		//drawing section
-		window.draw(player); 
+		player.draw(window);
 		plat.draw(window);
 		plat2.draw(window);
 		plat3.draw(window);

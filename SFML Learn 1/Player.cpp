@@ -18,10 +18,10 @@ Player::~Player()
 void Player::updatePlayer(sf::RenderWindow & window)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-		m_xPos -= 1;
+		obj.move(-0.1f, 0.0f);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-		m_xPos += 1;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+		obj.move(0.1f, 0.0f);
 	}
 }
 
