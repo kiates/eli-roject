@@ -16,5 +16,7 @@ protected:
 	sf::RectangleShape obj;
 	int m_xPos;
 	int m_yPos;
+	float m_height;
+	float m_width;
 };
 

@@ -6,6 +6,8 @@ Player::Player(int xPos, int yPos)
 {
 	m_xPos = xPos;
 	m_yPos = yPos;
+	m_height = 100.0f;
+	m_width = 100.0f;
 	obj.setSize(sf::Vector2f(100.0f, 100.0f));
 	obj.setPosition(sf::Vector2f((float)xPos, (float)yPos));
 }
@@ -35,6 +37,16 @@ int Player::getYValue()
 	return m_yPos;
 }
 
+float Player::getHeight()
+{
+	return m_height;
+}
+
+float Player::getWidth()
+{
+	return m_width;
+}
+
 void Player::setXValue(int xPos)
 {
 	m_xPos = xPos;
@@ -43,6 +55,16 @@ void Player::setXValue(int xPos)
 void Player::setYValue(int yPos)
 {
 	m_yPos = yPos;
+}
+
+void Player::setHeight(float height)
+{
+	m_height = height;
+}
+
+void Player::setWidth(float width)
+{
+	m_width = width;
 }
 
 sf::Vector2f Player::getPosition()

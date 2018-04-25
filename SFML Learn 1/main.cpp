@@ -25,7 +25,7 @@ int main() {
 
 		}
 		
-		view.setCenter(player.getPosition()); // sets a view to follow the player
+		view.setCenter(player.getPosition() + sf::Vector2f(player.getHeight() / 2, player.getWidth() / 2)); // sets a view to follow the player
 
 		window.clear(); // clears window
 		window.setView(view); // set view on the the screen

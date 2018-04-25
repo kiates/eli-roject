@@ -14,11 +14,17 @@ public:
 	//getters
 	int getXValue();
 	int getYValue();
+	
+	float getHeight();
+	float getWidth();
 
 	//setters
 
 	void setXValue(int xPos);
 	void setYValue(int yPos);
+
+	void setHeight(float height);
+	void setWidth(float width);
 
 
 
