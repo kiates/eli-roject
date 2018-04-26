@@ -4,8 +4,8 @@
 
 Player::Player(int xPos, int yPos)
 {
-	m_xPos = xPos;
-	m_yPos = yPos;
+	m_xPos = xPos * 100;
+	m_yPos = yPos * 100;
 	m_height = 100.0f;
 	m_width = 100.0f;
 	obj.setSize(sf::Vector2f(100.0f, 100.0f));
@@ -25,7 +25,12 @@ void Player::updatePlayer(sf::RenderWindow & window)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
 		obj.move(0.1f, 0.0f);
 	}
+	m_xPos = obj.getPosition().x;
+	m_yPos = obj.getPosition().y;
+
 }
+
+
 
 int Player::getXValue()
 {

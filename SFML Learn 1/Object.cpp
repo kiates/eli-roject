@@ -19,9 +19,19 @@ Object::~Object()
 {
 }
 
+sf::Vector2f Object::getCenter()
+{
 
+	return obj.getPosition() + sf::Vector2f(m_height / 2, m_width / 2);
+}
 
 void Object::draw(sf::RenderWindow & window)
 {
 	window.draw(obj);
+}
+
+void Object::updatePos()
+{
+	m_xPos = obj.getPosition().x;
+	m_yPos = obj.getPosition().y;
 }

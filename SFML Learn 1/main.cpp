@@ -1,11 +1,12 @@
 #include <SFML\Graphics.hpp>
+#include <iostream>
 #include "Platform.h"
 #include "Player.h"
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1080,720), "Window", sf::Style::Close | sf::Style::Titlebar); //defining size, name, and stles of the window
 	//sf::RectangleShape player(sf::Vector2f(100.0f, 100.0f)); // creates shape of 100 by 100
-	Player player(0, 0);
+	Player player(2, 0);
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(1080.0f, 720.0f));
 	Platform plat(4, 1);
 	Platform plat2(3, 1);
@@ -13,6 +14,7 @@ int main() {
 	Platform plat4(1, 1);
 	Platform plat5(0, 1);
 	Platform plat6(-1, 1);
+	Platform plat7(2, 0);
 
 	while (window.isOpen()) { //main game loop
 
@@ -31,7 +33,7 @@ int main() {
 		window.setView(view); // set view on the the screen
 
 		player.updatePlayer(window);
-
+		
 		//drawing section
 		player.draw(window);
 		plat.draw(window);
@@ -40,6 +42,10 @@ int main() {
 		plat4.draw(window);
 		plat5.draw(window);
 		plat6.draw(window);
+		plat7.draw(window);
+		if (plat7.detectCollision(player)) {
+			std::cout << "True";
+		}
 
 		window.display(); // updates the screen with the buffer screen
 
