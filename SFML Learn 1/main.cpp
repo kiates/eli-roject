@@ -32,8 +32,14 @@ int main() {
 		window.clear(); // clears window
 		window.setView(view); // set view on the the screen
 
-		player.updatePlayer(window);
-		
+		player.updatePlayer(window, plat.detectCollision(player));
+		player.updatePlayer(window, plat2.detectCollision(player));
+		player.updatePlayer(window, plat3.detectCollision(player));
+		player.updatePlayer(window, plat4.detectCollision(player));
+		player.updatePlayer(window, plat5.detectCollision(player));
+		player.updatePlayer(window, plat6.detectCollision(player));
+		player.updatePlayer(window, plat7.detectCollision(player));
+
 		//drawing section
 		player.draw(window);
 		plat.draw(window);
@@ -43,9 +49,8 @@ int main() {
 		plat5.draw(window);
 		plat6.draw(window);
 		plat7.draw(window);
-		if (plat7.detectCollision(player)) {
-			std::cout << "True";
-		}
+		plat7.detectCollision(player);
+
 
 		window.display(); // updates the screen with the buffer screen
 
