@@ -2,12 +2,14 @@
 
 
 
-Platform::Platform(int xPos, int yPos)
+Platform::Platform(int xPos, int yPos, bool damagePlayer, sf::Color color)
 {
 	m_xPos = xPos * 100.0f;
 	m_yPos = yPos * 100.0f;
 	m_width = 100.0f;
 	m_height = 100.0f;
+	m_damagePlayer = damagePlayer;
+	obj.setFillColor(color);
 	obj.setSize(sf::Vector2f(100.0f, 100.0f));
 	obj.setPosition(sf::Vector2f((float)xPos * 100.0f, (float)yPos * 100.0f)); // sets position of platform
 }
@@ -55,6 +57,22 @@ bool Platform::detectCollisionTop(Player & play)
 	}
 	else
 		return false;
+}
+
+bool Platform::hurtPlayer(Player &play)
+{
+	if (m_damagePlayer == true) {
+		if (detectCollision(play) || detectCollisionTop(play)) {
+			play.loseHealth(0.1f);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		return false;
+	}
 }
 
 Platform::~Platform()

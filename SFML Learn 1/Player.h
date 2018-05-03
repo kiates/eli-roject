@@ -13,6 +13,8 @@ public:
 
 	void updatePlayer(sf::RenderWindow &window, bool isColiding);
 
+	void drawHealthBar(sf::RenderWindow &window, sf::View view);
+
 	//getters
 	int getXValue();
 	int getYValue();
@@ -35,12 +37,13 @@ public:
 	void collideBottom(); //relative to player
 	void CollideTop(); //relative to player
 
-
+	void loseHealth(float amountLost);
 	sf::Vector2f getPosition();
 private:
 	float m_speed;
 	bool isJumping = false;
 	float time;
 	float m_health = 100.0f;
+	sf::RectangleShape m_healthBar;
 };
 

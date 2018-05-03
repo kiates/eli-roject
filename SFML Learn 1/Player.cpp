@@ -17,6 +17,8 @@ void Player::Reset(int xPos, int yPos)
 	m_health = 100.0f;
 	obj.setSize(sf::Vector2f(100.0f, 100.0f));
 	obj.setPosition(sf::Vector2f((float)xPos, (float)yPos));
+	m_healthBar.setSize(sf::Vector2f(100.0f, 50.0f));
+	m_healthBar.setPosition(sf::Vector2f(m_xPos + 100.0f, m_yPos + 100.0f));
 }
 
 Player::~Player()
@@ -69,7 +71,16 @@ void Player::updatePlayer(sf::RenderWindow & window, bool isColiding)
 		}
 	}
 	
+	
+
 	obj.setPosition(sf::Vector2f(m_xPos, m_yPos));
+}
+
+void Player::drawHealthBar(sf::RenderWindow & window, sf::View view)
+{
+	m_healthBar.setPosition(view.getCenter() - sf::Vector2f(495.0f,315.0f));
+	m_healthBar.setSize(sf::Vector2f(2 * m_health, 50.0f));
+	window.draw(m_healthBar);
 }
 
 
@@ -140,6 +151,11 @@ void Player::collideBottom()
 
 void Player::CollideTop()
 {
+}
+
+void Player::loseHealth(float amountLost)
+{
+	m_health -= amountLost;
 }
 
 sf::Vector2f Player::getPosition()
