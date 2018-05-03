@@ -18,6 +18,8 @@ public:
 
 protected:
 	sf::RectangleShape obj;
+	float m_xVel;
+	float m_yVel;
 	float m_xPos;
 	float m_yPos;
 	float m_height;

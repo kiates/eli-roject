@@ -8,7 +8,7 @@
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1080,720), "Window", sf::Style::Close | sf::Style::Titlebar); //defining size, name, and stles of the window
 	//sf::RectangleShape player(sf::Vector2f(100.0f, 100.0f)); // creates shape of 100 by 100
-	Player player(2, 8);
+	Player player(2, 7);
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(1080.0f, 720.0f));
 	Level *level = new Level(&level1, dimX, dimY);
 	

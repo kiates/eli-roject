@@ -31,39 +31,40 @@ void Player::updatePlayer(sf::RenderWindow & window, bool isColiding)
 	std::cout << "jump:" << isJumping;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-		obj.move(-m_speed, 0.0f);
+		m_xPos -= m_speed;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-		obj.move(m_speed, 0.0f);
+		m_xPos += m_speed;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+		if (isJumping == false)
+			m_yVel = -10.0f;
 		isJumping = true;
+		
 	}
 
 	if (isJumping == true) {
-		time += 0.01f;
-		obj.move((0.0f), (0.5 * pow(time, 2) - 2.6f * time));
+		m_yVel += 9.8f*.025f * 0.166667f;
+		m_yPos = m_yPos + m_yVel * 0.1666667f;
 	}
-	if (isColiding == true && time > 0.02f) {
+	if (isColiding == true && m_yVel >= 0) {
 		time = 0;
 		isJumping = false;
 		if (((int)obj.getPosition().y % 100) != 0) {
-			obj.setPosition(sf::Vector2f(m_xPos, round(obj.getPosition().y / 100.0f) * 100.0f));
+			m_yPos = round(m_yPos / 100.0f) * 100.0f;
 		}
 	}
 	if (isColiding == false && isJumping == false) {
 		time += 0.01f;
-		obj.move((0.0f), (2.4f * time));
+		m_yPos += 2.4f * time;
 		if (time > 5.0f) {
 			m_health = 0.0f;
 			time = 0.0f;
 		}
 	}
 	
-	m_xPos = obj.getPosition().x;
-	m_yPos = obj.getPosition().y;
-
+	obj.setPosition(sf::Vector2f(m_xPos, m_yPos));
 }
 
 
@@ -120,12 +121,12 @@ void Player::setPlayerHealth(float health)
 
 void Player::collideLeft()
 {
-	obj.move(m_speed, 0.0f);
+	m_xPos += m_speed;
 }
 
 void Player::collideRight()
 {
-	obj.move(-m_speed, 0.0f);
+	m_xPos -= m_speed;
 }
 
 void Player::collideBottom()

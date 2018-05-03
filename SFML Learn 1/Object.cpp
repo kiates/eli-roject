@@ -8,6 +8,8 @@ Object::Object()
 
 Object::Object(int xPos, int yPos)
 {
+	m_xVel = 0;
+	m_yVel = 0;
 	m_xPos = xPos;
 	m_yPos = yPos;
 	obj.setSize(sf::Vector2f(100.0f, 100.0f));
