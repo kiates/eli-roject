@@ -1,6 +1,7 @@
 #include "Platform.h"
 
 
+
 Platform::Platform(int xPos, int yPos)
 {
 	m_xPos = xPos;
@@ -17,20 +18,20 @@ bool Platform::detectCollision(Player &play)
 	sf::Vector2f objectCenter((float)m_xPos + 50.0f, (float)m_yPos + 50.0f);
 	if ((obj.getPosition().x + 50.0f) >= play.getXValue() + 50.0f) {
 		if ((obj.getPosition().x + 50.0f) - (play.getXValue() + 50.0f) <= m_width && (obj.getPosition().y + 50.0f) - (play.getYValue() + 50.0f) < m_height) {
+			play.collideRight();
 			return true;
 		}
 		else {
-			std::cout << true;
 			return false;
 		}
 	}
 	else {
 
 		if (((play.getXValue() + 50.0f) - (obj.getPosition().x + 50.0f)) < m_width && (obj.getPosition().y + 50.0f) - (play.getYValue() + 50.0f) < m_height) {
+			play.collideLeft();
 			return true;
 		}
 		else {
-			std::cout << false;
 			return false;
 		}
 	}
@@ -39,13 +40,11 @@ bool Platform::detectCollision(Player &play)
 
 bool Platform::detectCollisionTop(Player & play)
 {
-	if (play.getYValue() + 50.0f > obj.getPosition().y - 50.0f) {
+	if (play.getYValue() + 50.0f >= obj.getPosition().y - 50.0f) {
 		if ((obj.getPosition().x + 50.0f) - (play.getXValue() + 50.0f) <= m_width && (obj.getPosition().y + 50.0f) - (play.getYValue() + 50.0f) <= m_height && ((obj.getPosition().x + 50.0f) - (play.getXValue() + 50.0f) >= m_width)) {
-			std::cout << "true1";
 			return true;
 		}
 		else if ((((play.getXValue() + 50.0f) - (obj.getPosition().x + 50.0f)) <= m_width && (play.getYValue() + 50.0f) - (obj.getPosition().y + 50.0f) < m_height) && ((obj.getPosition().x + 50.0f) - (play.getXValue() + 50.0f) <= m_width)) {
-			std::cout << "true";
 			return true;
 		}
 		else {
