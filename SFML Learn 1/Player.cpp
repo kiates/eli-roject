@@ -45,8 +45,13 @@ void Player::updatePlayer(sf::RenderWindow & window, bool isColiding)
 	}
 
 	if (isJumping == true) {
+		time += 0.01f;
 		m_yVel += 9.8f*.025f * 0.166667f;
 		m_yPos = m_yPos + m_yVel * 0.1666667f;
+		if (time > 17.0f) {
+			m_health = 0.0f;
+			time = 0.0f;
+		}
 	}
 	if (isColiding == true && m_yVel >= 0) {
 		time = 0;
