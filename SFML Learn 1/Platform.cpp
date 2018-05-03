@@ -17,10 +17,10 @@ Platform::Platform(int xPos, int yPos, bool damagePlayer, sf::Color color)
 bool Platform::detectCollision(Player &play)
 {
 
-	sf::Vector2f objectCenter((float)m_xPos + 50.0f, (float)m_yPos + 50.0f);
-	if (m_yPos + 50.0f >= play.getYValue() + 50.0f){
-		if ((m_xPos + 50.0f) >= play.getXValue() + 50.0f) {
-			if ((m_xPos + 50.0f) - (play.getXValue() + 50.0f) <= m_width && (m_yPos + 50.0f) - (play.getYValue() + 50.0f) < m_height) {
+	sf::Vector2f objectCenter((float)m_xPos + (getWidth() / 2), (float)m_yPos + 50.0f);
+	if (m_yPos + (getHeight() / 2) >= play.getYValue() + (play.getHeight() / 2)){
+		if ((m_xPos + (getWidth() / 2)) >= play.getXValue() + (play.getWidth() / 2)) {
+			if ((m_xPos + (getWidth() / 2)) - (play.getXValue() + (play.getWidth() / 2)) <= play.getWidth() / 2 + m_width / 2 && (m_yPos + (getHeight() / 2)) - (play.getYValue() + (play.getHeight() / 2)) < play.getHeight() / 2 + m_height / 2) {
 				play.collideRight();
 				return true;
 			}
@@ -30,7 +30,7 @@ bool Platform::detectCollision(Player &play)
 		}
 		else {
 
-			if (((play.getXValue() + 50.0f) - (m_xPos + 50.0f)) < m_width && (m_yPos + 50.0f) - (play.getYValue() + 50.0f) < m_height) {
+			if (((play.getXValue() + (play.getWidth() / 2)) - (m_xPos + (getWidth() / 2))) < play.getWidth() / 2 + m_width / 2 && (m_yPos + (getHeight() / 2)) - (play.getYValue() + (play.getHeight() / 2)) <  play.getHeight() / 2 + m_height / 2) {
 				play.collideLeft();
 				return true;
 			}
@@ -39,16 +39,19 @@ bool Platform::detectCollision(Player &play)
 			}
 		}
 	}
+	else {
+		return false;
+	}
 
 }
 
 bool Platform::detectCollisionTop(Player & play)
 {
-	if (play.getYValue() + 50.0f >= m_yPos - 50.0f) {
+	if (play.getYValue() + (play.getHeight() / 2) >= m_yPos - (getHeight() / 2)) {
 		//if ((obj.getPosition().x + 50.0f) - (play.getXValue() + 50.0f) <= m_width && (obj.getPosition().y + 50.0f) - (play.getYValue() + 50.0f) <= m_height && ((obj.getPosition().x + 50.0f) - (play.getXValue() + 50.0f) >= m_width)) {
 		//	return true;
 		//}
-		if ((((play.getXValue() + 50.0f) - (m_xPos + 50.0f)) <= m_width && (play.getYValue() + 50.0f) - (m_yPos + 50.0f) < m_height) && ((m_xPos + 50.0f) - (play.getXValue() + 50.0f) <= m_width)) {
+		if ((((play.getXValue() + (play.getWidth() / 2)) - (m_xPos + (getWidth() / 2))) < play.getWidth() / 2 + m_width / 2 && (play.getYValue() + (play.getHeight() / 2)) - (m_yPos + (getHeight() / 2)) < play.getHeight() / 2 + m_height / 2) && ((m_xPos + (getWidth() / 2)) - (play.getXValue() + (play.getWidth() / 2)) < play.getWidth() / 2 + m_width / 2)) {
 			return true;
 		}
 		else {

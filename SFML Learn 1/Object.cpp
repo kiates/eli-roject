@@ -37,3 +37,13 @@ void Object::updatePos()
 	m_xPos = obj.getPosition().x;
 	m_yPos = obj.getPosition().y;
 }
+
+float Object::getHeight()
+{
+	return m_height;
+}
+
+float Object::getWidth()
+{
+	return m_width;
+}

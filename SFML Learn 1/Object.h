@@ -15,6 +15,8 @@ public:
 	void draw(sf::RenderWindow &window);
 	void updatePos();
 
+	float getWidth();
+	float getHeight();
 
 protected:
 	sf::RectangleShape obj;

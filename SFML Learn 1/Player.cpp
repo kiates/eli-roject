@@ -12,10 +12,10 @@ void Player::Reset(int xPos, int yPos)
 	m_xPos = xPos * 100;
 	m_yPos = yPos * 100;
 	m_height = 100.0f;
-	m_width = 100.0f;
+	m_width = 75.0f;
 	m_speed = 0.4f;
 	m_health = 100.0f;
-	obj.setSize(sf::Vector2f(100.0f, 100.0f));
+	obj.setSize(sf::Vector2f(m_width, m_height));
 	obj.setPosition(sf::Vector2f((float)xPos, (float)yPos));
 	m_healthBar.setSize(sf::Vector2f(100.0f, 50.0f));
 	m_healthBar.setPosition(sf::Vector2f(m_xPos + 100.0f, m_yPos + 100.0f));
@@ -78,9 +78,28 @@ void Player::updatePlayer(sf::RenderWindow & window, bool isColiding)
 
 void Player::drawHealthBar(sf::RenderWindow & window, sf::View view)
 {
-	m_healthBar.setPosition(view.getCenter() - sf::Vector2f(495.0f,315.0f));
+	sf::RectangleShape sideBars(sf::Vector2f(0.0f,0.0f));
+	sf::RectangleShape topBars(sf::Vector2f(0.0f, 0.0f));
+	m_healthBar.setPosition(view.getCenter() - (view.getSize() / 2.0f) + sf::Vector2f(10.0f, 10.0f));
 	m_healthBar.setSize(sf::Vector2f(2 * m_health, 50.0f));
+	m_healthBar.setFillColor(sf::Color::Red);
+
+	sideBars.setSize(sf::Vector2f(10.0f, 70.0f));
+	sideBars.setFillColor(sf::Color::Blue);
+	sideBars.setPosition(view.getCenter() - (view.getSize() / 2.0f));
+	window.draw(sideBars);
+	sideBars.setPosition(view.getCenter() - (view.getSize() / 2.0f) + sf::Vector2f(210.0f, 0.0f));
+	window.draw(sideBars);
+
+	topBars.setSize(sf::Vector2f(220.0f, 10.0f));
+	topBars.setFillColor(sf::Color::Blue);
+	topBars.setPosition(view.getCenter() - (view.getSize() / 2.0f));
+	window.draw(topBars);
+	topBars.setPosition(view.getCenter() - (view.getSize() / 2.0f) + sf::Vector2f(0.0f, 60.0f));
+	window.draw(topBars);
+
 	window.draw(m_healthBar);
+	
 }
 
 
@@ -93,16 +112,6 @@ int Player::getXValue()
 int Player::getYValue()
 {
 	return m_yPos;
-}
-
-float Player::getHeight()
-{
-	return m_height;
-}
-
-float Player::getWidth()
-{
-	return m_width;
 }
 
 float Player::getPlayerHealth()

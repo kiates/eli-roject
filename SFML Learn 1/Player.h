@@ -18,9 +18,6 @@ public:
 	//getters
 	int getXValue();
 	int getYValue();
-	
-	float getHeight();
-	float getWidth();
 
 	float getPlayerHealth();
 	//setters

@@ -30,7 +30,7 @@ int main() {
 		
 		 // sets a view to follow the player
 
-		
+		view.setCenter(player.getPosition() + sf::Vector2f(player.getHeight() / 2, player.getWidth() / 2));
 		window.setView(view); // set view on the the screen
 
 		bool detectCollision = false;
@@ -56,7 +56,7 @@ int main() {
 		player.updatePlayer(window, detectCollision);
 	
 	
-		view.setCenter(player.getPosition() + sf::Vector2f(player.getHeight() / 2, player.getWidth() / 2));
+		
 		//drawing section
 		player.draw(window);
 		for (int i = 0; i < level->plats.size(); i++) {
