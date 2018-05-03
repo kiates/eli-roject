@@ -34,14 +34,19 @@ void Player::updatePlayer(sf::RenderWindow & window, bool isColiding)
 	}
 
 	if (isJumping == true) {
-		time += 0.1f;
-		obj.move((0.0f), (pow(time, 2) - 10 * time));
+		time += 0.01f;
+		obj.move((0.0f), (pow(time, 2) - 2.4 * time));
 	}
 	if (isColiding == true) {
 		time = 0;
 		isJumping = false;
+		if (((int)obj.getPosition().y % 100) != 0) {
+			obj.setPosition(sf::Vector2f(m_xPos, round(obj.getPosition().y / 100.0f) * 100.0f));
+		}
 	}
-
+	if (isColiding == false) {
+		obj.move((0.0f), (2.4 * time));
+	}
 	m_xPos = obj.getPosition().x;
 	m_yPos = obj.getPosition().y;
 

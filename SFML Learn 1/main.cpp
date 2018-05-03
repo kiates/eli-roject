@@ -1,5 +1,6 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
+#include <vector>
 #include "Platform.h"
 #include "Player.h"
 
@@ -15,6 +16,15 @@ int main() {
 	Platform plat5(0, 1);
 	Platform plat6(-1, 1);
 	Platform plat7(2, 0);
+	std::vector <Platform> plats;
+	plats.push_back(plat);
+	plats.push_back(plat2);
+	plats.push_back(plat3);
+	plats.push_back(plat4);
+	plats.push_back(plat5);
+	plats.push_back(plat6);
+	plats.push_back(plat7);
+	bool detectCollision = false;
 
 	while (window.isOpen()) { //main game loop
 
@@ -32,13 +42,26 @@ int main() {
 		window.clear(); // clears window
 		window.setView(view); // set view on the the screen
 
-		player.updatePlayer(window, plat.detectCollision(player));
-		player.updatePlayer(window, plat2.detectCollision(player));
-		player.updatePlayer(window, plat3.detectCollision(player));
-		player.updatePlayer(window, plat4.detectCollision(player));
-		player.updatePlayer(window, plat5.detectCollision(player));
-		player.updatePlayer(window, plat6.detectCollision(player));
-		player.updatePlayer(window, plat7.detectCollision(player));
+		for (int i = 0; i < plats.size(); i++) {
+			bool isColliding;
+			isColliding = plats[i].detectCollisionTop(player);
+			if (isColliding == true) {
+				player.updatePlayer(window, true);
+				detectCollision = true;
+			}
+
+		}
+
+		if (!detectCollision) {
+			player.updatePlayer(window, false);
+		}
+		//player.updatePlayer(window, plat.detectCollisionTop(player));
+		//player.updatePlayer(window, plat2.detectCollisionTop(player));
+		//player.updatePlayer(window, plat2.detectCollisionTop(player));
+		//player.updatePlayer(window, plat3.detectCollisionTop(player));
+		//player.updatePlayer(window, plat5.detectCollisionTop(player));
+		//player.updatePlayer(window, plat6.detectCollisionTop(player));
+		//player.updatePlayer(window, plat7.detectCollisionTop(player));
 
 		//drawing section
 		player.draw(window);
@@ -54,6 +77,7 @@ int main() {
 
 		window.display(); // updates the screen with the buffer screen
 
+		detectCollision = false;
 	}
 
 	return 0;

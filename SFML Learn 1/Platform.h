@@ -9,6 +9,7 @@ class Platform : public Object
 public:
 	Platform(int xPos, int yPos);
 	bool detectCollision(Player &play);
+	bool detectCollisionTop(Player &play);
 
 	~Platform();
 private:
