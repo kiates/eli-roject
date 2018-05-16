@@ -22,6 +22,7 @@ bool Platform::detectCollision(Player &play)
 		if ((m_xPos + (getWidth() / 2)) >= play.getXValue() + (play.getWidth() / 2)) {
 			if ((m_xPos + (getWidth() / 2)) - (play.getXValue() + (play.getWidth() / 2)) <= play.getWidth() / 2 + m_width / 2 && (m_yPos + (getHeight() / 2)) - (play.getYValue() + (play.getHeight() / 2)) < play.getHeight() / 2 + m_height / 2) {
 				play.collideRight();
+				//std::cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 				return true;
 			}
 			else {
@@ -32,6 +33,7 @@ bool Platform::detectCollision(Player &play)
 
 			if (((play.getXValue() + (play.getWidth() / 2)) - (m_xPos + (getWidth() / 2))) < play.getWidth() / 2 + m_width / 2 && (m_yPos + (getHeight() / 2)) - (play.getYValue() + (play.getHeight() / 2)) <  play.getHeight() / 2 + m_height / 2) {
 				play.collideLeft();
+				//std::cout << "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
 				return true;
 			}
 			else {
@@ -65,7 +67,7 @@ bool Platform::detectCollisionTop(Player & play)
 bool Platform::hurtPlayer(Player &play)
 {
 	if (m_damagePlayer == true) {
-		if (detectCollision(play) || detectCollisionTop(play)) {
+		if (detectCollision(play) == true || detectCollisionTop(play) == true) {
 			play.loseHealth(0.1f);
 			return true;
 		}

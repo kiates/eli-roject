@@ -132,9 +132,11 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Levels.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Level.h" />
+    <ClInclude Include="Levels.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="Player.h" />
@@ -142,6 +144,14 @@
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
     <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Exit Button Hovered.png" />
+    <Image Include="Assets\Exit Button.png" />
+    <Image Include="Assets\Options Button Hovered.png" />
+    <Image Include="Assets\Options Button.png" />
+    <Image Include="Assets\Play Button Hovered.png" />
+    <Image Include="Assets\Play Button.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
