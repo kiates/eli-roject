@@ -6,7 +6,7 @@
 #include "Level.h"
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(1280,720), "Window", sf::Style::Close | sf::Style::Titlebar | sf::Style::Fullscreen); //defining size, name, and stles of the window
+	sf::RenderWindow window(sf::VideoMode(1280,720), "Window", sf::Style::Close | sf::Style::Titlebar); //defining size, name, and stles of the window
 	//sf::RectangleShape player(sf::Vector2f(100.0f, 100.0f)); // creates shape of 100 by 100
 	Player player(2, 7);
 	sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(1280.0f, 720.0f));
@@ -68,7 +68,7 @@ int main() {
 
 			if (evnt.type == evnt.Closed) { //when 'x' is pressed in the corner
 				window.close(); //closes the window
-			}
+			}	
 
 		}
 		
@@ -91,7 +91,7 @@ int main() {
 			for (int i = 0; i < level->plats.size(); i++) {
 				bool isColliding;
 				isColliding = level->plats[i].detectCollisionTop(player);
-
+				
 				if (isColliding == true) {
 
 					detectCollision = true;
@@ -99,6 +99,22 @@ int main() {
 					break;
 				}
 
+			}
+			for (int i = 0; i < level->plats.size(); i++) {
+				bool isColliding;
+				isColliding = level->plats[i].detectCollisionBottom(player);
+
+				if (isColliding == true) {
+					player.setJumping(false);
+					detectCollision = true;
+					std::cout << "touching";
+					break;
+				}
+
+			}
+			
+			for (int i = 0; i < level->plats.size(); i++) {
+				level->plats[i].movingPlatform();
 			}
 
 			player.updatePlayer(window, detectCollision);
@@ -123,6 +139,8 @@ int main() {
 			window.clear(); // clears window
 		}
 		else {
+			
+			std::cout << mousePos.x << ", " << mousePos.y << std::endl;
 			if (startButtonInt.contains(mousePos)) {
 				startButton.setTexture(&t_startButtonHovered);
 				if (mouse.isButtonPressed(sf::Mouse::Button::Left)) {

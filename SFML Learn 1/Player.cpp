@@ -2,17 +2,17 @@
 
 
 
-Player::Player(int xPos, int yPos)
+Player::Player(int xPos, int yPos, float width)
 {
-	Reset(xPos, yPos);
+	Reset(xPos, yPos, width);
 }
 
-void Player::Reset(int xPos, int yPos)
+void Player::Reset(int xPos, int yPos, float width)
 {
 	m_xPos = xPos * 100;
 	m_yPos = yPos * 100;
 	m_height = 100.0f;
-	m_width = 75.0f;
+	m_width = width;
 	m_speed = 0.4f;
 	m_health = 100.0f;
 	obj.setSize(sf::Vector2f(m_width, m_height));
@@ -55,12 +55,16 @@ void Player::updatePlayer(sf::RenderWindow & window, bool isColiding)
 			time = 0.0f;
 		}
 	}
-	if (isColiding == true && m_yVel >= 0) {
+	if (isColiding == true && m_yVel >= 0 && m_movingPlatform == false) {
 		time = 0;
 		isJumping = false;
 		if (((int)obj.getPosition().y % 100) != 0) {
 			m_yPos = round(m_yPos / 100.0f) * 100.0f;
 		}
+	}
+	if (isColiding == true && m_yVel >= 0 && m_movingPlatform == true) {
+		time = 0;
+		isJumping = false;
 	}
 	if (isColiding == false && isJumping == false) {
 		time += 0.01f;
@@ -114,6 +118,16 @@ int Player::getYValue()
 	return m_yPos;
 }
 
+void Player::updateXPos(float x)
+{
+	m_xPos += x;
+}
+
+void Player::updateYPos(float y)
+{
+	m_yPos += y;
+}
+
 float Player::getPlayerHealth()
 {
 	return m_health;
@@ -127,6 +141,11 @@ void Player::setXValue(int xPos)
 void Player::setYValue(int yPos)
 {
 	m_yPos = yPos;
+}
+
+void Player::setJumping(bool jumpoing)
+{
+	isJumping = jumpoing;
 }
 
 void Player::setHeight(float height)

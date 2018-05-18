@@ -7,15 +7,18 @@
 class Platform : public Object
 {
 public:
-	Platform(int xPos, int yPos, bool damagePlayer, sf::Color color);
-	bool detectCollision(Player &play);
-	bool detectCollisionTop(Player &play);
+	Platform(int xPos, int yPos, int platformType, sf::Color color);
+	int detectCollision(Player &play);
+	int detectCollisionTop(Player &play);
+	int detectCollisionBottom(Player &play);
+	void movingPlatform();
 
 	bool hurtPlayer(Player &play);
 
 	~Platform();
 private:
 	sf::Vector2f center;
-	bool m_damagePlayer;
+	int m_platformType;
+	float m_time = 0.0f;
 };
 

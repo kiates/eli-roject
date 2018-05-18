@@ -29,11 +29,19 @@ void Level::Generate()
 	for (int y = 0; y < m_dimX; y++) {
 		for (int x = 0; x < m_dimY; x++) {
 			if ((*m_level)[y][x] == 1) {
-				Platform plat(x, y, false, sf::Color::Blue);
+				Platform plat(x, y, 1, sf::Color::Blue);
 				plats.push_back(plat);
 			}
 			else if ((*m_level)[y][x] == 2) {
-				Platform plat(x, y, true, sf::Color::Red);
+				Platform plat(x, y, 2, sf::Color::Red);
+				plats.push_back(plat);
+			}
+			else if ((*m_level)[y][x] == 3) {
+				Platform plat(x, y, 3, sf::Color::Magenta);
+				plats.push_back(plat);
+			}
+			else if ((*m_level)[y][x] == 4) {
+				Platform plat(x, y, 4, sf::Color::Magenta);
 				plats.push_back(plat);
 			}
 				
@@ -46,11 +54,11 @@ void Level::GenerateHomeScreen()
 	for (int y = 0; y < m_dimX; y++) {
 		for (int x = 0; x <= m_dimY; x++) {
 			if ((*m_homeScreen)[y][x] == 1) {
-				Platform plat(x, y, false, sf::Color::Blue);
+				Platform plat(x, y, 1, sf::Color::Blue);
 				plats.push_back(plat);
 			}
 			else if ((*m_homeScreen)[y][x] == 2) {
-				Platform plat(x, y, true, sf::Color::Red);
+				Platform plat(x, y, 2, sf::Color::Red);
 				plats.push_back(plat);
 			}
 
