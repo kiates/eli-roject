@@ -2,6 +2,10 @@
 
 
 
+Platform::Platform()
+{
+}
+
 Platform::Platform(int xPos, int yPos, int platformType, sf::Color color)
 {
 	m_xPos = xPos * 100.0f;
@@ -76,7 +80,7 @@ int Platform::detectCollisionBottom(Player & play)
 	//	}
 
 		if (((play.getXValue() + (play.getWidth() / 2)) - (m_xPos + (getWidth() / 2))) < play.getWidth() / 2 + m_width / 2 && (-(play.getYValue() + (play.getHeight() / 2)) + (m_yPos + (getHeight() / 2)) < play.getHeight() / 2 + m_height / 2) && ((m_xPos + (getWidth() / 2)) - (play.getXValue() + (play.getWidth() / 2)) < play.getWidth() / 2 + m_width / 2)) {
-			std::cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+			//std::cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 			
 			return 1;
 		}

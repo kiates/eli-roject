@@ -7,6 +7,7 @@
 class Platform : public Object
 {
 public:
+	Platform();
 	Platform(int xPos, int yPos, int platformType, sf::Color color);
 	int detectCollision(Player &play);
 	int detectCollisionTop(Player &play);

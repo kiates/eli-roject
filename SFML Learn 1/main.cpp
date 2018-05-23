@@ -4,6 +4,7 @@
 #include "Platform.h"
 #include "Player.h"
 #include "Level.h"
+#include "Weapon.h"
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(1280,720), "Window", sf::Style::Close | sf::Style::Titlebar); //defining size, name, and stles of the window
@@ -16,6 +17,9 @@ int main() {
 	sf::Time refreshRate = sf::microseconds(1500);
 	sf::Mouse mouse;
 	sf::Vector2i mousePos = mouse.getPosition();
+
+	Weapon playerWeapon(mouse, player);
+	bool playerFiredWeapon = false;
 
 	//start buttons
 	sf::RectangleShape startButton(sf::Vector2f(1006.0f, 156.0f));
@@ -55,10 +59,11 @@ int main() {
 	bool startScreen = true;
 
 	while (window.isOpen()) { //main game loop
-		mousePos = mouse.getPosition();
+		mousePos = mouse.getPosition(window);
 		clock.restart();
 		if (player.getPlayerHealth() <= 0.0f) {
 			delete level;
+			playerWeapon.clearBullets();
 			level = new Level(&level1, dimX, dimY);
 			player.Reset(2, 7);
 		}
@@ -95,7 +100,7 @@ int main() {
 				if (isColliding == true) {
 
 					detectCollision = true;
-					std::cout << "touching";
+					//std::cout << "touching";
 					break;
 				}
 
@@ -105,9 +110,9 @@ int main() {
 				isColliding = level->plats[i].detectCollisionBottom(player);
 
 				if (isColliding == true) {
-					player.setJumping(false);
-					detectCollision = true;
-					std::cout << "touching";
+				//	player.setJumping(false);
+					//detectCollision = true;
+					//std::cout << "touching";
 					break;
 				}
 
@@ -119,6 +124,10 @@ int main() {
 
 			player.updatePlayer(window, detectCollision);
 
+			if (mouse.isButtonPressed(sf::Mouse::Button::Left)) {
+				playerWeapon.fireWeapon(mouse, player, window);
+				playerFiredWeapon = true;
+			}
 
 
 			//drawing section
@@ -128,7 +137,8 @@ int main() {
 
 			}
 			player.drawHealthBar(window, view);
-
+			if (playerFiredWeapon)
+				playerWeapon.update(window);
 			
 			window.display(); // updates the screen with the buffer screen
 			sf::Time elapsed = clock.getElapsedTime();

@@ -6,6 +6,7 @@
 class Player : public Object
 {
 public:
+	Player();
 	Player(int xPos, int yPos, float width = 75.0f);
 	~Player();
 

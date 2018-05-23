@@ -2,6 +2,10 @@
 
 
 
+Player::Player()
+{
+}
+
 Player::Player(int xPos, int yPos, float width)
 {
 	Reset(xPos, yPos, width);
@@ -29,8 +33,8 @@ void Player::updatePlayer(sf::RenderWindow & window, bool isColiding)
 {
 	float timer;
 
-	std::cout << "col:" << isColiding;
-	std::cout << "jump:" << isJumping;
+	//std::cout << "col:" << isColiding;
+	//std::cout << "jump:" << isJumping;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
 		m_xPos -= m_speed;
