@@ -13,7 +13,6 @@ public:
 	sf::Vector2f getCenter();
 
 	void draw(sf::RenderWindow &window);
-	void updatePos();
 
 	float getWidth();
 	float getHeight();
