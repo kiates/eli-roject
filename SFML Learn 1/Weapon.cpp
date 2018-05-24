@@ -52,7 +52,23 @@ void Weapon::update(sf::RenderWindow& window)
 				//m_bullets.pop_back();
 			}
 	}
-	m_bullets.shrink_to_fit();
+	m_time += 0.1;
+	//m_bullets.shrink_to_fit();
+}
+
+void Weapon::setTime(float time)
+{
+	m_time = time;
+}
+
+float Weapon::getTime()
+{
+	return m_time;
+}
+
+float Weapon::getReloadSpeed()
+{
+	return m_reloadSpeed;
 }
 
 void Weapon::clearBullets()

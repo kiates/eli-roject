@@ -138,10 +138,12 @@ int main() {
 
 				player.updatePlayer(window, detectCollision);
 
-			if (mouse.isButtonPressed(sf::Mouse::Button::Left)) {
+				if (mouse.isButtonPressed(sf::Mouse::Button::Left) && playerWeapon.getTime() > playerWeapon.getReloadSpeed()) {
 					playerWeapon.fireWeapon(mouse, player, window);
+					playerWeapon.setTime(0.0f);
 					playerFiredWeapon = true;
 				}
+			}
 
 
 			//drawing section
