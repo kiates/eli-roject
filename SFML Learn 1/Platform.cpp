@@ -20,11 +20,15 @@ Platform::Platform(int xPos, int yPos, int platformType, sf::Color color)
 
 int Platform::detectCollision(Player &play)
 {
+	
+
 
 	sf::Vector2f objectCenter((float)m_xPos + (getWidth() / 2), (float)m_yPos + 50.0f);
-	if (m_yPos + (getHeight() / 2) >= play.getYValue() + (play.getHeight() / 2)){
-		if ((m_xPos + (getWidth() / 2)) >= play.getXValue() + (play.getWidth() / 2)) {
-			if ((m_xPos + (getWidth() / 2)) - (play.getXValue() + (play.getWidth() / 2)) < play.getWidth() / 2 + m_width / 2 && (m_yPos + (getHeight() / 2)) - (play.getYValue() + (play.getHeight() / 2)) < play.getHeight() / 2 + m_height / 2) {
+	if (m_yPos + (getHeight() / 2) > play.getYValue() + (play.getHeight() / 2)){
+		if ((m_xPos + (getWidth() / 2)) > play.getXValue() + (play.getWidth() / 2)) {
+			bool xPostoRight = getCenter().x - play.getCenter().y < play.getWidth() / 2 + m_width / 2;
+			bool yBetween = getCenter().y - play.getCenter().y < play.getHeight() / 2 + m_height / 2;
+			if (xPostoRight && yBetween && play.m_movingPlatform == false) {
 				play.collideRight();
 				//std::cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 				return 1;
@@ -35,7 +39,7 @@ int Platform::detectCollision(Player &play)
 		}
 		else {
 
-			if (((play.getXValue() + (play.getWidth() / 2)) - (m_xPos + (getWidth() / 2))) < play.getWidth() / 2 + m_width / 2 && (m_yPos + (getHeight() / 2)) - (play.getYValue() + (play.getHeight() / 2)) <  play.getHeight() / 2 + m_height / 2) {
+			if (((play.getXValue() + (play.getWidth() / 2)) - (m_xPos + (getWidth() / 2))) < play.getWidth() / 2 + m_width / 2 && (m_yPos + (getHeight() / 2)) - (play.getYValue() + (play.getHeight() / 2)) <  play.getHeight() / 2 + m_height / 2 && play.m_movingPlatform == false) {
 				play.collideLeft();
 				//std::cout << "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
 				return 1;
@@ -60,8 +64,14 @@ int Platform::detectCollisionTop(Player & play)
 		if ((((play.getXValue() + (play.getWidth() / 2)) - (m_xPos + (getWidth() / 2))) < play.getWidth() / 2 + m_width / 2 && (play.getYValue() + (play.getHeight() / 2)) - (m_yPos + (getHeight() / 2)) < play.getHeight() / 2 + m_height / 2) && ((m_xPos + (getWidth() / 2)) - (play.getXValue() + (play.getWidth() / 2)) < play.getWidth() / 2 + m_width / 2)) {
 			if (m_platformType == 3) {
 				play.updateXPos(sin(m_time * 0.5));
+				return 1;
 			}
-			return 1;
+			if (m_platformType == 4) {
+				play.updateYPos(-sin(m_time * 0.5) );
+				return 2;
+			}
+			else
+				return 1;
 		}
 		else {
 			return 0;
