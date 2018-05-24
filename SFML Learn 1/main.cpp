@@ -70,6 +70,7 @@ int main() {
 	//background.setTextureRect(sf::IntRect(-1000, -1000, 12800, 7200));
 
 	bool startScreen = true;
+	bool pause = false;
 
 	while (window.isOpen()) { //main game loop
 		mousePos = mouse.getPosition(window);
@@ -101,7 +102,7 @@ int main() {
 			window.setView(view); // set view on the the screen
 
 			bool detectCollision = false;
-
+			if (pause == false) {
 				for (int i = 0; i < level->plats.size(); i++) {
 					level->plats[i].detectCollision(player);
 					level->plats[i].hurtPlayer(player);
@@ -145,6 +146,12 @@ int main() {
 				}
 			}
 
+			if (mouse.isButtonPressed(sf::Mouse::Button::Right)) {
+				if (pause == false)
+					pause = true;
+				else
+					pause = false;
+			}
 
 			//drawing section
 			player.draw(window);
