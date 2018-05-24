@@ -60,11 +60,17 @@ int Platform::detectCollision(Player &play)
 
 int Platform::detectCollisionTop(Player & play)
 {
-	if (play.getYValue() + (play.getHeight() / 2) >= m_yPos - (getHeight() / 2)) {
-		//if ((obj.getPosition().x + 50.0f) - (play.getXValue() + 50.0f) <= m_width && (obj.getPosition().y + 50.0f) - (play.getYValue() + 50.0f) <= m_height && ((obj.getPosition().x + 50.0f) - (play.getXValue() + 50.0f) >= m_width)) {
-		//	return true;
-		//}
-		if ((((play.getXValue() + (play.getWidth() / 2)) - (m_xPos + (getWidth() / 2))) < play.getWidth() / 2 + m_width / 2 && (play.getYValue() + (play.getHeight() / 2)) - (m_yPos + (getHeight() / 2)) < play.getHeight() / 2 + m_height / 2) && ((m_xPos + (getWidth() / 2)) - (play.getXValue() + (play.getWidth() / 2)) < play.getWidth() / 2 + m_width / 2)) {
+	sf::Vector2f objectCenter = getCenter();
+	sf::Vector2f playerCenter = play.getCenter();
+	sf::Vector2f distance = sf::Vector2f(std::abs(objectCenter.x - playerCenter.x), std::abs(objectCenter.y - playerCenter.y));
+	sf::Vector2f radiusSum = sf::Vector2f(play.getWidth() / 2 + m_width / 2, play.getHeight() / 2 + m_height / 2);
+
+	// Is the player near the top of the platform.
+	if (playerCenter.y >= m_yPos - (getHeight() / 2)) {
+		// Is the player overlapping the platform.
+		auto overlappingX = distance.x < radiusSum.x;
+		auto overlappingY = distance.y < radiusSum.y;
+		if (overlappingX && overlappingY) {
 			if (m_platformType == 3) {
 				play.updateXPos(sin(m_time * 0.5));
 				return 1;
@@ -75,7 +81,7 @@ int Platform::detectCollisionTop(Player & play)
 			}
 			else
 			{
-				play.setYValue(m_yPos - play.getHeight());
+				//play.setYValue(m_yPos - play.getHeight());
 				return 1;
 			}
 		}
