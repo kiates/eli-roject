@@ -24,7 +24,7 @@ Object::~Object()
 sf::Vector2f Object::getCenter()
 {
 
-	return (obj.getPosition() + sf::Vector2f(m_height / 2, m_width / 2));
+	return (sf::Vector2f(m_xPos, m_yPos) + sf::Vector2f(m_width / 2, m_height / 2));
 }
 
 void Object::draw(sf::RenderWindow & window)
