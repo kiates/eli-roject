@@ -109,13 +109,18 @@ int main() {
 
 				}
 				for (int i = 0; i < level->plats.size(); i++) {
-				bool isColliding;
+					int isColliding;
 					isColliding = level->plats[i].detectCollisionTop(player);
 
-				if (isColliding == true) {
-
+					if (isColliding == 1) {
+						player.m_movingPlatform = false;
 						detectCollision = true;
 						//std::cout << "touching";
+						break;
+					}
+					else if (isColliding == 2) {
+						player.m_movingPlatform = true;
+						detectCollision = true;
 						break;
 					}
 
@@ -168,6 +173,8 @@ int main() {
 			while (elapsed < refreshRate) {
 				elapsed = clock.getElapsedTime();
 			}
+
+			player.m_movingPlatform = false;
 
 			window.clear(); // clears window
 		}
