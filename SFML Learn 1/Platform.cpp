@@ -74,7 +74,10 @@ int Platform::detectCollisionTop(Player & play)
 				return 2;
 			}
 			else
+			{
+				play.setYValue(m_yPos - play.getHeight());
 				return 1;
+			}
 		}
 		else {
 			return 0;
