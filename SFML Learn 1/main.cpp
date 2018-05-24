@@ -71,6 +71,7 @@ int main() {
 
 	bool startScreen = true;
 	bool pause = false;
+	bool previousMouseButtonState = false;
 
 	while (window.isOpen()) { //main game loop
 		mousePos = mouse.getPosition(window);
@@ -150,13 +151,11 @@ int main() {
 					playerFiredWeapon = true;
 				}
 			}
-
-			if (mouse.isButtonPressed(sf::Mouse::Button::Right)) {
-				if (pause == false)
-					pause = true;
-				else
-					pause = false;
+			bool currentMouseButtonState = mouse.isButtonPressed(sf::Mouse::Button::Right);
+			if (currentMouseButtonState && !previousMouseButtonState) {				
+				pause = !pause;
 			}
+			previousMouseButtonState = currentMouseButtonState;
 
 			//drawing section
 			player.draw(window);
