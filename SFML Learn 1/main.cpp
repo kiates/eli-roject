@@ -22,6 +22,9 @@ int main() {
 	bool playerFiredWeapon = false;
 
 	//start buttons
+	sf::Sprite background;
+	sf::RectangleShape backgrounds(sf::Vector2f(12800.0f, 7200.0f));
+
 	sf::RectangleShape startButton(sf::Vector2f(1006.0f, 156.0f));
 	sf::RectangleShape optoinButton(sf::Vector2f(1006.0f, 156.0f));
 	sf::RectangleShape exitButton(sf::Vector2f(1006.0f, 156.0f));
@@ -30,6 +33,9 @@ int main() {
 	sf::IntRect optoinButtonInt(137, 282, 1006, 156);
 	sf::IntRect exitButtonInt(137, 500, 1006, 156);
 
+	sf::Texture t_background;
+	t_background.setRepeated(true);
+
 	sf::Texture t_startButton;
 	sf::Texture t_optoinButton;
 	sf::Texture t_exitButton;
@@ -37,6 +43,8 @@ int main() {
 	sf::Texture t_startButtonHovered;
 	sf::Texture t_optoinButtonHovered;
 	sf::Texture t_exitButtonHovered;
+
+	t_background.loadFromFile("Assets/backgrounds.png");
 
 	t_startButton.loadFromFile("Assets/Play Button.png");
 	t_optoinButton.loadFromFile("Assets/Options Button.png");
@@ -55,8 +63,14 @@ int main() {
 	exitButton.setPosition(sf::Vector2f(137.0f, 500.0f));
 	exitButton.setTexture(&t_exitButton);
 	
+	backgrounds.setPosition(sf::Vector2f(-2000.0f, -500.0f));
+	backgrounds.setTexture(&t_background);
+
+	//background.setTexture(t_background);
+	//background.setTextureRect(sf::IntRect(-1000, -1000, 12800, 7200));
 
 	bool startScreen = true;
+	bool pause = false;
 
 	while (window.isOpen()) { //main game loop
 		mousePos = mouse.getPosition(window);
@@ -83,52 +97,66 @@ int main() {
 
 		 // sets a view to follow the player
 		if (startScreen == false) {
+			window.draw(backgrounds);
 			view.setCenter(player.getPosition() + sf::Vector2f(player.getHeight() / 2, player.getWidth() / 2));
 			window.setView(view); // set view on the the screen
 
 			bool detectCollision = false;
+			if (pause == false) {
+				for (int i = 0; i < level->plats.size(); i++) {
+					level->plats[i].detectCollision(player);
+					level->plats[i].hurtPlayer(player);
 
-			for (int i = 0; i < level->plats.size(); i++) {
-				level->plats[i].detectCollision(player);
-				level->plats[i].hurtPlayer(player);
+				}
+				for (int i = 0; i < level->plats.size(); i++) {
+					int isColliding;
+					isColliding = level->plats[i].detectCollisionTop(player);
 
-			}
-			for (int i = 0; i < level->plats.size(); i++) {
-				bool isColliding;
-				isColliding = level->plats[i].detectCollisionTop(player);
-				
-				if (isColliding == true) {
+					if (isColliding == 1) {
+						player.m_movingPlatform = false;
+						detectCollision = true;
+						//std::cout << "touching";
+						break;
+					}
+					else if (isColliding == 2) {
+						player.m_movingPlatform = true;
+						detectCollision = true;
+						break;
+					}
 
-					detectCollision = true;
-					//std::cout << "touching";
-					break;
+				}
+				for (int i = 0; i < level->plats.size(); i++) {
+					bool isColliding;
+					isColliding = level->plats[i].detectCollisionBottom(player);
+
+					if (isColliding == true) {
+							//player.setJumping(false);
+							//detectCollision = true;
+							//std::cout << "touching";
+						break;
+					}
+
 				}
 
-			}
-			for (int i = 0; i < level->plats.size(); i++) {
-				bool isColliding;
-				isColliding = level->plats[i].detectCollisionBottom(player);
-
-				if (isColliding == true) {
-				//	player.setJumping(false);
-					//detectCollision = true;
-					//std::cout << "touching";
-					break;
+				for (int i = 0; i < level->plats.size(); i++) {
+					level->plats[i].movingPlatform();
 				}
 
-			}
-			
-			for (int i = 0; i < level->plats.size(); i++) {
-				level->plats[i].movingPlatform();
-			}
+				player.updatePlayer(window, detectCollision);
 
-			player.updatePlayer(window, detectCollision);
-
-			if (mouse.isButtonPressed(sf::Mouse::Button::Left)) {
-				playerWeapon.fireWeapon(mouse, player, window);
-				playerFiredWeapon = true;
+				if (mouse.isButtonPressed(sf::Mouse::Button::Left) && playerWeapon.getTime() > playerWeapon.getReloadSpeed()) {
+					playerWeapon.fireWeapon(mouse, player, window);
+					playerWeapon.setTime(0.0f);
+					playerFiredWeapon = true;
+				}
 			}
 
+			if (mouse.isButtonPressed(sf::Mouse::Button::Right)) {
+				if (pause == false)
+					pause = true;
+				else
+					pause = false;
+			}
 
 			//drawing section
 			player.draw(window);
@@ -145,6 +173,8 @@ int main() {
 			while (elapsed < refreshRate) {
 				elapsed = clock.getElapsedTime();
 			}
+
+			player.m_movingPlatform = false;
 
 			window.clear(); // clears window
 		}

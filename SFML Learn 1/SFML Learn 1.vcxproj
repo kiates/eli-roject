@@ -151,6 +151,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\background.jpg" />
     <Image Include="Assets\Exit Button Hovered.png" />
     <Image Include="Assets\Exit Button.png" />
     <Image Include="Assets\Options Button Hovered.png" />

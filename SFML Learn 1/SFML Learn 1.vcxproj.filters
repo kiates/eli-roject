@@ -87,5 +87,8 @@
     <Image Include="Assets\Options Button Hovered.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Assets\background.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
