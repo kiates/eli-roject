@@ -105,24 +105,20 @@ int main() {
 			bool detectCollision = false;
 			if (pause == false) {
 				for (int i = 0; i < level->plats.size(); i++) {
+					int isColliding = level->plats[i].detectCollisionTop(player);
 					level->plats[i].detectCollision(player);
 					level->plats[i].hurtPlayer(player);
-
-				}
-				for (int i = 0; i < level->plats.size(); i++) {
-					int isColliding;
-					isColliding = level->plats[i].detectCollisionTop(player);
 
 					if (isColliding == 1) {
 						player.m_movingPlatform = false;
 						detectCollision = true;
 						//std::cout << "touching";
-						break;
+						//break;
 					}
 					else if (isColliding == 2) {
 						player.m_movingPlatform = true;
 						detectCollision = true;
-						break;
+						//break;
 					}
 
 				}
