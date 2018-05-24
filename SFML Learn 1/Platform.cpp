@@ -19,28 +19,35 @@ Platform::Platform(int xPos, int yPos, int platformType, sf::Color color)
 }
 
 int Platform::detectCollision(Player &play)
-{
-	
-	sf::Vector2f objectCenter((float)m_xPos + (getWidth() / 2), (float)m_yPos + 50.0f);
-	if (m_yPos + (getHeight() / 2) >= play.getYValue() + (play.getHeight() / 2)){
-		if ((m_xPos + (getWidth() / 2)) >= play.getXValue() + (play.getWidth() / 2)) {
-			if ((m_xPos + (getWidth() / 2)) - (play.getXValue() + (play.getWidth() / 2)) < play.getWidth() / 2 + m_width / 2 && (m_yPos + (getHeight() / 2)) - (play.getYValue() + (play.getHeight() / 2)) < play.getHeight() / 2 + m_height / 2 && play.m_movingPlatform == false) {
-				play.collideRight();
-				//std::cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-				return 1;
-			}
-			else {
-				return 0;
-			}
-		}
-		else {
+{	
+	sf::Vector2f objectCenter = getCenter();
+	sf::Vector2f playerCenter = play.getCenter();
+	sf::Vector2f distance = sf::Vector2f(std::abs(objectCenter.x - playerCenter.x), std::abs(objectCenter.y - playerCenter.y));
+	sf::Vector2f radiusSum = sf::Vector2f(play.getWidth() / 2 + m_width / 2, play.getHeight() / 2 + m_height / 2);
 
-			if (((play.getXValue() + (play.getWidth() / 2)) - (m_xPos + (getWidth() / 2))) < play.getWidth() / 2 + m_width / 2 && (m_yPos + (getHeight() / 2)) - (play.getYValue() + (play.getHeight() / 2)) <  play.getHeight() / 2 + m_height / 2 && play.m_movingPlatform == false) {
-				play.collideLeft();
-				//std::cout << "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
-				return 1;
+	// Is the platform lower than the player.
+	if (objectCenter.y >= playerCenter.y) {
+		// Is the player overlapping the platform and the platform is a moving platform.
+		auto overlappingX = distance.x < radiusSum.x;
+		auto overlappingY = distance.y < radiusSum.y;
+		if (overlappingX && overlappingY)
+		{
+			if (play.m_movingPlatform == false)
+			{
+				// Is the platform to the right of the player.
+				if (objectCenter.x >= playerCenter.x)
+				{
+					play.collideRight();
+					//std::cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+					return 1;
+				}
+				else {
+					play.collideLeft();
+					return 1;
+				}
 			}
-			else {
+			else
+			{
 				return 0;
 			}
 		}
